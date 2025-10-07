@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Haley Clark Photo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#ffffff; --ink:#1a1a1a; --muted:#6e6e6e; --line:#d9d9d9;
+    --nav-h:88px; --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+
+  /* NAV (two columns: left links + right icons) */
+  .nav{
+    position:fixed; inset:0 0 auto 0; height:var(--nav-h);
+    display:grid; grid-template-columns:1fr 1fr; align-items:center;
+    padding:0 24px; z-index:40;
+  }
+  .nav a{ text-decoration:none; color:#fff; letter-spacing:.08em; text-transform:uppercase; font-size:14px; }
+
+  .nav .links{ display:flex; gap:18px; align-items:center; }
+
+  /* Bubble pills ONLY for the text links (not the icon buttons) */
+  .nav .links > a:not(.icon-btn){
+    background:rgba(60,60,60,.38);                 /* gray bubble */
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);
+    -webkit-backdrop-filter:saturate(150%) blur(4px);
+    backdrop-filter:saturate(150%) blur(4px);
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    transition:background-color .25s ease, box-shadow .25s ease, transform .05s ease;
+    white-space:nowrap;
+  }
+  .nav .links > a:not(.icon-btn):hover{
+    background:rgba(60,60,60,.6);
+    box-shadow:0 4px 16px rgba(0,0,0,.14);
+  }
+  .nav .links > a:not(.icon-btn):active{
+    transform:translateY(1px);
+  }
+
+  .nav .right{ justify-content:flex-end; gap:16px; }
+
+  .icon-btn{
+    width:42px; height:42px; display:grid; place-items:center;
+    border:1px solid rgba(255,255,255,.9); border-radius:999px; background:rgba(0,0,0,.15);
+    transition:background-color .25s ease;
+  }
+  .icon-btn:hover{ background:rgba(0,0,0,.25); }
+  .icon-btn svg{ width:18px; height:18px; fill:none; stroke:#fff; stroke-width:2; }
+
+  /* HERO / SLIDER */
+  .hero{ position:relative; height:92vh; min-height:580px; overflow:hidden; color:#fff; }
+  .slides{position:absolute; inset:0; display:grid;}
+  .slide{ position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transform:scale(1.05); transition:opacity .9s ease, transform 1.2s ease; }
+  .slide.active{ opacity:1; transform:scale(1); }
+  .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.35)); pointer-events:none; }
+  .hero-controls{ position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 18px; z-index:2; }
+  .arrow{ width:44px; height:44px; border:1px solid rgba(255,255,255,.85); border-radius:999px; display:grid; place-items:center; cursor:pointer; user-select:none; background:rgba(0,0,0,.15); }
+  .arrow:hover{ background:rgba(0,0,0,.25); }
+  .arrow svg{ width:18px; height:18px; fill:none; stroke:#fff; stroke-width:2; }
+  .hero-index{ position:absolute; right:24px; top:50%; transform:translateY(-50%); writing-mode:vertical-rl; text-orientation:mixed; font-variant-numeric:tabular-nums; color:#f4f4f4; letter-spacing:.2em; z-index:2; }
+  .hero-caption{ position:absolute; bottom:42px; left:50%; transform:translateX(-50%); text-align:center; z-index:2; padding:0 18px; max-width:var(--maxw); width:100%; }
+  .hero h1{ margin:0 0 8px 0; font-family:"Playfair Display",serif; font-weight:600; font-size:clamp(28px,4vw,48px); }
+  .hero p{ margin:0; color:#e9e9e9; }
+
+  /* CONTENT */
+  .container{ max-width:var(--maxw); margin:0 auto; padding:72px 24px; }
+  .rule{ border:0; border-top:1px solid var(--line); margin:0 auto 56px; max-width:920px; }
+  /* PORTFOLIO GRID STYLING */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.portfolio-grid figure {
+  margin: 0;
+  text-align: center;
+}
+
+.portfolio-grid img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.portfolio-grid figcaption {
+  margin-top: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: #3b3b3b;
+  letter-spacing: 0.04em;
+}
+
+  .about{ display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center; }
+  .about img{ width:100%; height:520px; object-fit:cover; border-radius:6px; }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.14em; color:var(--muted); font-size:12px; }
+  h2{ font-family:"Playfair Display",serif; font-size:36px; margin:.15em 0 .35em; }
+  .lead{ color:#3b3b3b; font-size:17px; }
+  .btn{ display:inline-block; margin-top:20px; padding:12px 20px; border:1px solid var(--ink); text-decoration:none; color:var(--ink); border-radius:999px; font-size:14px; letter-spacing:.04em; }
+  .btn:hover{ background:var(--ink); color:#fff; }
+
+  /* FOOTER */
+  footer{ border-top:1px solid var(--line); padding:36px 24px 60px; color:var(--muted); }
+  .foot-grid{ max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; }
+  .foot-grid a{ color:var(--muted); text-decoration:none; margin-right:18px; }
+  .foot-grid .center{ text-align:center; }
+  .foot-mark{
+    width:100px;
+    height:100px;
+    border:none;
+    border-radius:6px;
+    display:inline-grid;
+    place-items:center;
+    overflow:hidden;
+  }
+  .foot-mark img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 920px){
+    .nav{ grid-template-columns:1fr 1fr; }
+    .nav .links{ display:none; } /* keep your current mobile behavior */
+    .about{ grid-template-columns:1fr; }
+    .about img{ height:380px; }
+  }
+  /* Make the whole card clickable + a subtle hover */
+.portfolio-grid a{ display:block; text-decoration:none; color:inherit; }
+.portfolio-grid a:hover img{ transform:scale(1.01); }
+.portfolio-grid img{ transition:transform .2s ease; cursor:pointer; }
+
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="links">
+      <a href="#home">Home</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
+    </div>
+
+    <!-- Right-side icon buttons -->
+    <div class="links right">
+      <!-- Instagram -->
+      <a class="icon-btn" href="https://www.instagram.com/haleyclarkphoto/" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="#fff" stroke="none"></circle>
+        </svg>
+      </a>
+      <!-- Phone -->
+      <a class="icon-btn" href="tel:+1-703-261-3044" aria-label="Call">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.86.32 1.7.59 2.5a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.57-1.09a2 2 0 0 1 2.11-.45c.8.27 1.64.47 2.5.59A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </a>
+      <!-- Email -->
+      <a class="icon-btn" href="mailto:haleyclarkphoto@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+          <path d="M22 6l-10 7L2 6"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO / SLIDER -->
+  <header id="home" class="hero" aria-label="Featured gallery">
+    <div class="slides" id="slides">
+      <!-- Local photos -->
+      <div class="slide active" style="background-image:url('photos/hands.jpg');"></div>
+      <div class="slide" style="background-image:url('photos/kendall1.jpg');"></div>
+      <div class="slide" style="background-image:url('photos/peteelise1.JPG');"></div>
+    </div>
+
+    <div class="hero-controls">
+      <button class="arrow" id="prev" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button class="arrow" id="next" aria-label="Next slide">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <!-- <div class="hero-index" id="heroIndex">01 — 03</div> -->
+
+    <div class="hero-caption">
+      <h1>Haley Clark Photo</h1>
+      <p>Families • Couples • Kids • Portraits • Pets</p>
+    </div>
+  </header>
+
+  <!-- DIVIDER -->
+  <div class="container"><hr class="rule" /></div>
+
+  <!-- ABOUT -->
+  <section id="about" class="container about">
+    <img src="photos/haley2.jpg" alt="Bride holding bouquet in an orchard" />
+    <div>
+      <div class="eyebrow">About Me</div>
+      <h2>Photography:</h2>
+      <p class="lead">
+        Hi, I’m Haley Clark, a Utah-based photographer with a passion for capturing life’s meaningful moments. I specialize in photographing families, couples, kids, and portraits, creating images that feel natural, timeless, and full of personality.
+      </p>
+      <p>
+        Whether it’s documenting the joy of family connections, the love between couples, or the unique character of individuals, my goal is to help you feel comfortable and confident in front of the camera. I believe every session should be fun, relaxed, and true to you—so the photos we create together become memories you’ll cherish for years to come.
+      </p>
+      <a class="btn" href="https://calendly.com/davidcashclark/30min" target="_blank" rel="noopener">Book Now!</a>
+    </div>
+  </section>
+
+<!-- PORTFOLIO GRID -->
+<section id="portfolio" class="container">
+  <h2>Portfolio</h2>
+
+  <div class="portfolio-grid">
+    <a href="couples.html" aria-label="View Couples portfolio">
+      <figure>
+        <img src="photos/drewandkenzie.jpg" alt="Couples Session" />
+        <figcaption>Couples</figcaption>
+      </figure>
+    </a>
+
+    <a href="portraits.html" aria-label="View Portraits portfolio">
+      <figure>
+        <img src="photos/emilie1.JPG" alt="Portraits Session" />
+        <figcaption>Portraits</figcaption>
+      </figure>
+    </a>
+
+    <a href="family.html" aria-label="View Families portfolio">
+      <figure>
+        <img src="photos/peteelise1.JPG" alt="Family Session" />
+        <figcaption>Families</figcaption>
+      </figure>
+    </a>
+  </div>
+</section>
+
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <a href="pricing.html">Pricing</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#home">Home</a>
+      </div>
+      <div class="center">
+        <span class="foot-mark" aria-hidden="true">
+          <!-- <img src="photos/logo1.png" alt="Haley Clark Photo logo" loading="lazy"> -->
+        </span>
+        <div style="margin-top:8px;font-size:13px;">© <span id="year"></span> Haley Clark Photo</div>
+      </div>
+      <div style="text-align:right">
+        <a href="https://www.instagram.com/haleyclarkphoto/" aria-label="Instagram">Instagram</a>
+        <a href="mailto:haleyclarkphoto@gmail.com" aria-label="Email">Email</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Slider
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const idx = document.getElementById('heroIndex'); // may be null if index is commented out
+  let i = 0;
+  function setActive(n){
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+    if (idx) {
+      idx.textContent = String(i+1).padStart(2,'0') + " — " + String(slides.length).padStart(2,'0');
+    }
+  }
+  document.getElementById('next').addEventListener('click', ()=>setActive(i+1));
+  document.getElementById('prev').addEventListener('click', ()=>setActive(i-1));
+  setInterval(()=>setActive(i+1), 6000);
+</script>
+</body>
+</html>
